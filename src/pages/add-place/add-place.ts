@@ -1,3 +1,4 @@
+import { PlacesService } from "./../../services/places.service";
 import { Component } from "@angular/core";
 import {
   IonicPage,
@@ -5,15 +6,16 @@ import {
   NavController,
   LoadingController,
   ToastController,
-  Events,
   normalizeURL
 } from "ionic-angular";
 import { NgForm } from "@angular/forms";
 
-import { Geolocation, Camera } from "ionic-native";
+import { Geolocation, Camera, File, Entry } from "ionic-native";
 
 import { SetLocationPage } from "./../set-location/set-location";
 import { Location } from "./../../models/location.model";
+
+declare var cordova: any;
 
 @IonicPage()
 @Component({
@@ -33,13 +35,26 @@ export class AddPlacePage {
     private navCtrl: NavController,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-    private event: Events
+    private placesService: PlacesService
   ) {
-    this.onLocate();
+    //this.onLocate();
   }
 
   onSubmit(form: NgForm) {
     console.log(form);
+    this.placesService.addPlace(
+      form.value.title,
+      form.value.description,
+      this.location,
+      this.imageUrl
+    );
+    form.reset();
+    this.location = {
+      lat: 40.7624324,
+      lng: -73.9759827
+    };
+    this.imageUrl = "";
+    this.locationIsSet = false;
   }
 
   onOpenMap() {
@@ -84,11 +99,41 @@ export class AddPlacePage {
       correctOrientation: true
     })
       .then(imageData => {
-        this.imageUrl = imageData;
-        this.imageUrl = normalizeURL(this.imageUrl);
+        this.imageUrl = normalizeURL(imageData);
+        console.log("image normalize: " + this.imageUrl);
+        let win: any = window; // hack compilator
+        this.imageUrl = win.Ionic.WebView.convertFileSrc(imageData);
+        console.log("image convertSrc : " + this.imageUrl);
+        const currentName = this.imageUrl.replace(/^.*[\\\/]/, "");
+        const path = this.imageUrl.replace(/[^\/]*$/, "");
+        File.moveFile(
+          path,
+          currentName,
+          cordova.file.daraDirectory,
+          currentName
+        )
+          .then((data: Entry) => {
+            this.imageUrl = data.nativeURL;
+            Camera.cleanup();
+          })
+          .catch(error => {
+            this.imageUrl = "";
+            console.log('toto error : : ' + error);
+            const toast = this.toastCtrl.create({
+              message: "Could not save the image, please try again !",
+              duration: 2500
+            });
+            toast.present();
+            Camera.cleanup();
+          });
       })
       .catch(error => {
-        console.log(error);
+        console.log("error onTakePhoto : " + error);
+        const toast = this.toastCtrl.create({
+          message: "Could not save the image, please try again !",
+          duration: 2500
+        });
+        toast.present();
       });
   }
 }
