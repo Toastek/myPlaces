@@ -48,6 +48,12 @@ export class AddPlacePage {
       this.location,
       this.imageUrl
     );
+    const toast = this.toastCtrl.create({
+      message: "L'endroit \"" + form.value.title + '" a été ajouté',
+      duration: 2500
+    });
+    toast.present();
+    //reset form et map après form submission
     form.reset();
     this.location = {
       lat: 40.7624324,
@@ -98,34 +104,35 @@ export class AddPlacePage {
       encodingType: Camera.EncodingType.JPEG,
       correctOrientation: true
     })
-      .then(imageData => {
+      .then(async imageData => {
         this.imageUrl = normalizeURL(imageData);
         console.log("image normalize: " + this.imageUrl);
         let win: any = window; // hack compilator
         this.imageUrl = win.Ionic.WebView.convertFileSrc(imageData);
         console.log("image convertSrc : " + this.imageUrl);
-        const currentName = this.imageUrl.replace(/^.*[\\\/]/, "");
-        const path = this.imageUrl.replace(/[^\/]*$/, "");
-        File.moveFile(
-          path,
-          currentName,
-          cordova.file.daraDirectory,
-          currentName
-        )
-          .then((data: Entry) => {
-            this.imageUrl = data.nativeURL;
-            Camera.cleanup();
-          })
-          .catch(error => {
-            this.imageUrl = "";
-            console.log('toto error : : ' + error);
-            const toast = this.toastCtrl.create({
-              message: "Could not save the image, please try again !",
-              duration: 2500
-            });
-            toast.present();
-            Camera.cleanup();
-          });
+        //const currentName = this.imageUrl.replace(/^.*[\\\/]/, "");
+        //debugger;
+        //const path = this.imageUrl.replace(/[^\/]*$/, "");
+        // File.moveFile(
+        //   path,
+        //   currentName,
+        //   cordova.file.dataDirectory,
+        //   currentName
+        // )
+        //   .then((data: Entry) => {
+        //     this.imageUrl = data.nativeURL;
+        //     Camera.cleanup();
+        //   })
+        //   .catch(error => {
+        //     this.imageUrl = "";
+        //     console.log('toto error : : ' + error.message);
+        //     const toast = this.toastCtrl.create({
+        //       message: "Could not save the image, please try again !",
+        //       duration: 2500
+        //     });
+        //     toast.present();
+        //     Camera.cleanup();
+        //   });
       })
       .catch(error => {
         console.log("error onTakePhoto : " + error);

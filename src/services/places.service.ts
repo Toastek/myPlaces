@@ -33,6 +33,7 @@ export class PlacesService {
   }
 
   loadPlaces() {
+    console.log('loadPlaces from service executed normally !');
     return this.places.slice();
   }
 
@@ -41,6 +42,7 @@ export class PlacesService {
       .get("places")
       .then((places: Place[]) => {
         this.places = places != null ? places : [];
+        console.log('fetchedPlace from service executed normally !');
       })
       .catch(error => {
         console.log(error);
@@ -53,25 +55,35 @@ export class PlacesService {
     this.storage
       .set("places", this.places)
       .then(() => {
-        this.removeFile(place);
+        //this.removeFile(place);
+        console.log("deletePlace from service executed normaly !");
       })
       .catch(error => {
         console.log("error while deleting place : " + error);
       });
+    // this.storage
+    //   .get("places")
+    //   .then(result => {
+    //     console.log("places = ");
+    //     console.log(result);
+    //   })
+    //   .catch(error => {
+    //     console.log(error.message);
+    //   });
   }
 
-  private removeFile(place: Place) {
-    const currentName = place.imagePath.replace(/^.*[\\\/]/, "");
-    File.removeFile(cordova.file.dataDirectory, currentName)
-      .then()
-      .catch(error => {
-        console.log("removeFileError : " + error);
-        this.addPlace(
-          place.title,
-          place.description,
-          place.location,
-          place.imagePath
-        );
-      });
-  }
+  // private removeFile(place: Place) {
+  //   const currentName = place.imagePath.replace(/^.*[\\\/]/, "");
+  //   File.removeFile(cordova.file.dataDirectory, currentName)
+  //     .then()
+  //     .catch(error => {
+  //       console.log("removeFileError : " + error.message);
+  //       this.addPlace(
+  //         place.title,
+  //         place.description,
+  //         place.location,
+  //         place.imagePath
+  //       );
+  //     });
+  // }
 }
