@@ -1,25 +1,28 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NgForm } from "@angular/forms";
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
-/**
- * Generated class for the SignInPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { LogInPage } from "./../log-in/log-in";
 
 @IonicPage()
 @Component({
-  selector: 'page-sign-in',
-  templateUrl: 'sign-in.html',
+  selector: "page-sign-in",
+  templateUrl: "sign-in.html"
 })
 export class SignInPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SignInPage');
+    console.log("ionViewDidLoad SignInPage");
   }
 
+  //on pop pour éviter de pouvoir remplir la stack en boucle avec des views
+  // à remplacer par popToRoot à l'avenir sûrement
+  onGoBackToLogin() {
+    this.navCtrl.pop();
+  }
+
+  onSignin(form: NgForm) {
+    console.log(form);
+  }
 }

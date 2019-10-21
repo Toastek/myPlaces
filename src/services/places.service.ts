@@ -29,6 +29,7 @@ export class PlacesService {
       .catch(error => {
         this.places.splice(this.places.indexOf(place));
         console.log("error while storing place !");
+        console.log(error.message);
       });
   }
 
@@ -46,7 +47,7 @@ export class PlacesService {
         return (this.places);
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.message);
       });
   }
 

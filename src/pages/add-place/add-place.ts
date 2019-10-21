@@ -49,7 +49,7 @@ export class AddPlacePage {
       this.imageUrl
     );
     const toast = this.toastCtrl.create({
-      message: "L'endroit \"" + form.value.title + '" a été ajouté',
+      message: "L'endroit \"" + form.value.title + '" a été sauvegardé',
       duration: 2500
     });
     toast.present();
@@ -79,7 +79,7 @@ export class AddPlacePage {
 
   onLocate() {
     const myLoader = this.loadingCtrl.create({
-      content: "Getting your position..."
+      content: "Localisation en cours..."
     });
 
     Geolocation.getCurrentPosition()
@@ -91,7 +91,7 @@ export class AddPlacePage {
       .catch(error => {
         console.log("myError : " + error);
         const myToast = this.toastCtrl.create({
-          message: "Couldn't achieve to get your location",
+          message: "Votre localisation n'a pas pu être déterminée !",
           duration: 2500
         });
         myToast.present();
@@ -137,7 +137,7 @@ export class AddPlacePage {
       .catch(error => {
         console.log("error onTakePhoto : " + error);
         const toast = this.toastCtrl.create({
-          message: "Could not save the image, please try again !",
+          message: "L'image n'a pas pu être enregistrée, veuillez réessayer !",
           duration: 2500
         });
         toast.present();
