@@ -1,16 +1,17 @@
-<ion-header>
+<!-- <ion-header>
   <ion-navbar>
     <ion-title>Connexion à myPlaces</ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content padding>
+<ion-content>
+  <div class="myClass">
   <form #form="ngForm" (ngSubmit)="onLogin(form)">
-    <ion-grid>
+    <ion-grid padding>
       <ion-row color="primary" justify-content-center>
         <ion-col align-center>
           <div text-center>
-            <h3>Connectez-vous !</h3>
+            <h3>Connectez-vous à myPlaces !</h3>
           </div>
           <div padding>
             <ion-item>
@@ -31,4 +32,5 @@
       </ion-row>
     </ion-grid>
   </form>
+</div>
 </ion-content>

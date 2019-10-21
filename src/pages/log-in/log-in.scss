@@ -1,9 +1,16 @@
 page-log-in {
-  ion-item {
-    --background: #3880ff;
-    --color: #fff;
-  }
-  button {
-    --background: #062f77;
+  // ion-item {
+  //   --background: #3880ff;
+  //   --color: #fff;
+  // }
+  // ion-content {
+  //   --background: #062f77;
+  // }
+
+  .myClass {
+    background-color: #3880ff;
+    height: 100%;
+    width: 100%;
+    color: #fff;
   }
 }

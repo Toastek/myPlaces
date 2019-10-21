@@ -1,47 +1,46 @@
-<ion-header>
+<!-- <ion-header>
   <ion-navbar>
     <ion-title>signInPage</ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content padding>
+<ion-content>
 
-    <form  #form="ngForm" (ngSubmit)="onSignin(form)">
-        <ion-grid>
-          <ion-row color="primary" justify-content-center>
-            <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-              <div text-center>
-                <h3>Create your account!</h3>
-              </div>
-              <div padding>
-                <ion-item>
-                  <ion-input  name="name" type="text" placeholder="Pseudo" ngModel required></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-input name="email" type="email" placeholder="votre@email.com" ngModel required></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-input name="password" type="password" placeholder="Mot de passe" ngModel required></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-input name="confirm" type="password" placeholder="Confirmer le mdp" ngModel required></ion-input>
-                </ion-item>
-              </div>
-              <div padding>
-                <button ion-button  size="large" type="submit" [disabled]="form.invalid" expand="block">Register</button>
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </form>
-
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <button ion-button (click)="onGoBackToLogin()">
-          J'ai déjà un compte
-        </button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div class="myClass">
+    <form #form="ngForm" (ngSubmit)="onSignin(form)">
+      <ion-grid padding>
+        <ion-row color="primary" justify-content-center>
+          <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+            <div text-center>
+              <h3>Créez votre compte myPlaces !</h3>
+            </div>
+            <div padding>
+              <ion-item>
+                <ion-input name="name" type="text" placeholder="Pseudo" ngModel required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input name="email" type="email" placeholder="votre@email.com" ngModel required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input name="password" type="password" placeholder="Mot de passe" ngModel required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input name="confirm" type="password" placeholder="Confirmer le mdp" ngModel required></ion-input>
+              </ion-item>
+            </div>
+            <div padding>
+              <button ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Register</button>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <button ion-button (click)="onGoBackToLogin()">
+              J'ai déjà un compte
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </div>
 </ion-content>
