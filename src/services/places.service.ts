@@ -37,12 +37,13 @@ export class PlacesService {
     return this.places.slice();
   }
 
-  fetchPlaces() {
-    this.storage
+  async fetchPlaces() {
+    return this.storage
       .get("places")
       .then((places: Place[]) => {
         this.places = places != null ? places : [];
         console.log('fetchedPlace from service executed normally !');
+        return (this.places);
       })
       .catch(error => {
         console.log(error);
