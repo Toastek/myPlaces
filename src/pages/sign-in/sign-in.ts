@@ -4,13 +4,19 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 import { LogInPage } from "./../log-in/log-in";
 
+import { MyFirebaseService } from "./../../services/myfirebase.service";
+
 @IonicPage()
 @Component({
   selector: "page-sign-in",
   templateUrl: "sign-in.html"
 })
 export class SignInPage {
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private myFirebaseService: MyFirebaseService
+  ) {}
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad SignInPage");
