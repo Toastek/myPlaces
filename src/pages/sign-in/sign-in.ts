@@ -30,17 +30,20 @@ export class SignInPage {
   }
 
   onSignin(form: NgForm) {
+    console.log(form);
     this.myFirebaseService
       .signInWithEmail(form.value.email, form.value.password)
       .then(success => {
         console.log(success);
-        this.navCtrl.setRoot(HomePage);
+        this.myFirebaseService
+          .logInWithEmail(form.value.email, form.value.password)
+          .then(success => {
+            this.navCtrl.setRoot(HomePage);
+          })
+          .catch(error => {});
       })
       .catch(error => {
         console.log(error.message);
       });
-
-    //this.navCtrl.push(SignInPage);
-    console.log(form);
   }
 }

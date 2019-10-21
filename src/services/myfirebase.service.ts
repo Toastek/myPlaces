@@ -23,4 +23,18 @@ export class MyFirebaseService {
     console.log("Log in with email");
     return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
+
+  getUserEmail() {
+    if (this.isUserAuthenticated) {
+      return this.user.email;
+    }
+  }
+
+  isUserAuthenticated(): boolean {
+    if (this.user == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

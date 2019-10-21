@@ -68,13 +68,13 @@ export class AddPlacePage {
       location: this.location,
       isSet: this.locationIsSet
     });
-    modal.present();
     modal.onDidDismiss(data => {
       if (data) {
         this.location = data.location;
         this.locationIsSet = true;
       }
     });
+    modal.present();
   }
 
   onLocate() {

@@ -21,9 +21,9 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.placesService.fetchPlaces().then(
-      (places: Place[]) => this.places = places
-    );
+    this.placesService
+      .fetchPlaces()
+      .then((places: Place[]) => (this.places = places));
   }
 
   ionViewWillEnter() {
@@ -34,6 +34,9 @@ export class HomePage implements OnInit {
     const modal = this.modalCtrl.create(PlacePage, {
       place: thePlace,
       index: index
+    });
+    modal.onDidDismiss(data => {
+      this.places = this.placesService.loadPlaces();
     });
     modal.present();
   }
