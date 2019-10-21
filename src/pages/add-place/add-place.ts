@@ -1,4 +1,3 @@
-import { PlacesService } from "./../../services/places.service";
 import { Component } from "@angular/core";
 import {
   IonicPage,
@@ -9,10 +8,11 @@ import {
   normalizeURL
 } from "ionic-angular";
 import { NgForm } from "@angular/forms";
-
 import { Geolocation, Camera, File, Entry } from "ionic-native";
 
 import { SetLocationPage } from "./../set-location/set-location";
+
+import { PlacesService } from "./../../services/places.service";
 import { Location } from "./../../models/location.model";
 
 declare var cordova: any;

@@ -4,6 +4,7 @@ import { Place } from "./../../models/place.model";
 import { AddPlacePage } from "./../add-place/add-place";
 import { Component, OnInit } from "@angular/core";
 import { NavController, ModalController } from "ionic-angular";
+import { LogInPage } from "../log-in/log-in";
 
 @Component({
   selector: "page-home",
@@ -35,5 +36,9 @@ export class HomePage implements OnInit {
       index: index
     });
     modal.present();
+  }
+
+  onToto() {
+    this.navCtrl.push(LogInPage);
   }
 }
