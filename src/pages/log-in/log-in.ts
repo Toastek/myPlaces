@@ -23,6 +23,16 @@ export class LogInPage {
   }
 
   onLogin(form: NgForm) {
+    this.myFirebaseService
+      .logInWithEmail(form.value.email, form.value.password)
+      .then(success => {
+        console.log(success);
+        this.navCtrl.setRoot(HomePage);
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+
     //this.navCtrl.push(SignInPage);
     console.log(form);
   }

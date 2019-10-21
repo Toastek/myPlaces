@@ -5,6 +5,10 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { IonicStorageModule } from "@ionic/storage";
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { firebaseConfig } from '../config';
+
 import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
 import { PlacePage } from "./../pages/place/place";
@@ -34,7 +38,8 @@ import { AgmCoreModule } from "@agm/core";
     IonicStorageModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDcCD_pPnltidQL1MwO78tXY2iQ2b3LHqE"
-    })
+    }),
+    AngularFireModule.initializeApp(firebaseConfig.fire),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -52,6 +57,7 @@ import { AgmCoreModule } from "@agm/core";
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     PlacesService,
     MyFirebaseService,
+    AngularFireAuth,
   ]
 })
 export class AppModule {}
