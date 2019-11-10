@@ -24,8 +24,8 @@ declare var cordova: any;
 })
 export class AddPlacePage {
   location: Location = {
-    lat: 40.7624324,
-    lng: -73.9759827
+    lat: 45.306806,
+    lng: 5.881854
   };
   locationIsSet = false;
   imageUrl = "";
@@ -56,8 +56,8 @@ export class AddPlacePage {
     //reset form et map après form submission
     form.reset();
     this.location = {
-      lat: 40.7624324,
-      lng: -73.9759827
+      lat: 45.306806,
+      lng: 5.881854
     };
     this.imageUrl = "";
     this.locationIsSet = false;
@@ -138,7 +138,7 @@ export class AddPlacePage {
         console.log("error onTakePhoto : " + error);
         const toast = this.toastCtrl.create({
           message: "L'image n'a pas pu être enregistrée, veuillez réessayer !",
-          duration: 2500
+          duration: 3500
         });
         toast.present();
       });

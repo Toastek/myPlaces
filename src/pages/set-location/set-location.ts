@@ -16,8 +16,8 @@ import { Location } from "./../../models/location.model";
 export class SetLocationPage {
   location: Location;
   marker: Location;
-  lat = 51.678418;
-  lng = 7.809007;
+  lat = 45.3068068;
+  lng = 5.881854;
 
   constructor(
     public navCtrl: NavController,

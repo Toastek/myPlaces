@@ -20,6 +20,8 @@ import { LogInPage } from "./../pages/log-in/log-in";
 import { PlacesService } from "./../services/places.service";
 import { MyFirebaseService } from './../services/myfirebase.service';
 
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 import { AgmCoreModule } from "@agm/core";
 
 @NgModule({
@@ -40,6 +42,7 @@ import { AgmCoreModule } from "@agm/core";
       apiKey: "AIzaSyDcCD_pPnltidQL1MwO78tXY2iQ2b3LHqE"
     }),
     AngularFireModule.initializeApp(firebaseConfig.fire),
+    AngularFirestoreModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
