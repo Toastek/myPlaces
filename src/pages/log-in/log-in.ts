@@ -27,7 +27,7 @@ export class LogInPage {
       .logInWithEmail(form.value.email, form.value.password)
       .then(success => {
         console.log(success);
-        this.myFirebaseService.fetchUserDataFromFire();
+        //sthis.myFirebaseService.();
         this.navCtrl.setRoot(HomePage);
       })
       .catch(error => {

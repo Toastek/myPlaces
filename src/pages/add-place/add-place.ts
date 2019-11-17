@@ -1,3 +1,4 @@
+import { MyFirebaseService } from "./../../services/myfirebase.service";
 import { Component } from "@angular/core";
 import {
   IonicPage,
@@ -5,15 +6,17 @@ import {
   NavController,
   LoadingController,
   ToastController,
-  normalizeURL
+  normalizeURL,
+  DateTime
 } from "ionic-angular";
 import { NgForm } from "@angular/forms";
 import { Geolocation, Camera, File, Entry } from "ionic-native";
 
 import { SetLocationPage } from "./../set-location/set-location";
 
-import { PlacesService } from "./../../services/places.service";
 import { Location } from "./../../models/location.model";
+import { timer } from "rxjs";
+import { Place } from "../../models/place.model";
 
 declare var cordova: any;
 
@@ -28,39 +31,55 @@ export class AddPlacePage {
     lng: 5.881854
   };
   locationIsSet = false;
-  imageUrl = "";
+  prefixBase64: string = "data:image/jpeg;base64,";
+  presenterBase64: string = "";
+  imageUrl: string = "";
+  base64Image: string = "";
 
   constructor(
     private modalCtrl: ModalController,
     private navCtrl: NavController,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-    private placesService: PlacesService
+    private myFirebaseService: MyFirebaseService
   ) {
     //this.onLocate();
   }
 
   onSubmit(form: NgForm) {
-    console.log(form);
-    this.placesService.addPlace(
-      form.value.title,
-      form.value.description,
-      this.location,
-      this.imageUrl
-    );
-    const toast = this.toastCtrl.create({
-      message: "L'endroit \"" + form.value.title + '" a été sauvegardé',
-      duration: 2500
-    });
-    toast.present();
-    //reset form et map après form submission
-    form.reset();
-    this.location = {
-      lat: 45.306806,
-      lng: 5.881854
-    };
-    this.imageUrl = "";
-    this.locationIsSet = false;
+    var storeID = Date.now().toLocaleString();
+    this.myFirebaseService
+      .uploadImageToFirestore(this.base64Image, storeID)
+      .then(result => {
+        this.myFirebaseService.getImageUrlFromFirestore(storeID).then(url => {
+          console.log(form);
+          this.imageUrl = url;
+          var docID : string = this.myFirebaseService.user.uid+storeID;
+          this.myFirebaseService.pushPlaceToFirebase(
+            new Place(
+              form.value.title,
+              form.value.description,
+              this.location,
+              this.imageUrl,
+              docID,
+              storeID
+            )
+          );
+          const toast = this.toastCtrl.create({
+            message: "L'endroit \"" + form.value.title + '" a été sauvegardé',
+            duration: 2500
+          });
+          toast.present();
+          //reset form et map après form submission
+          form.reset();
+          this.location = {
+            lat: 45.306806,
+            lng: 5.881854
+          };
+          this.imageUrl = "";
+          this.locationIsSet = false;
+        });
+      });
   }
 
   onOpenMap() {
@@ -101,38 +120,17 @@ export class AddPlacePage {
 
   onTakePhoto() {
     Camera.getPicture({
+      destinationType: Camera.DestinationType.DATA_URL,
       encodingType: Camera.EncodingType.JPEG,
       correctOrientation: true
     })
       .then(async imageData => {
-        this.imageUrl = normalizeURL(imageData);
-        console.log("image normalize: " + this.imageUrl);
+        /*
         let win: any = window; // hack compilator
         this.imageUrl = win.Ionic.WebView.convertFileSrc(imageData);
-        console.log("image convertSrc : " + this.imageUrl);
-        //const currentName = this.imageUrl.replace(/^.*[\\\/]/, "");
-        //debugger;
-        //const path = this.imageUrl.replace(/[^\/]*$/, "");
-        // File.moveFile(
-        //   path,
-        //   currentName,
-        //   cordova.file.dataDirectory,
-        //   currentName
-        // )
-        //   .then((data: Entry) => {
-        //     this.imageUrl = data.nativeURL;
-        //     Camera.cleanup();
-        //   })
-        //   .catch(error => {
-        //     this.imageUrl = "";
-        //     console.log('toto error : : ' + error.message);
-        //     const toast = this.toastCtrl.create({
-        //       message: "Could not save the image, please try again !",
-        //       duration: 2500
-        //     });
-        //     toast.present();
-        //     Camera.cleanup();
-        //   });
+*/
+        this.base64Image = imageData;
+        this.presenterBase64 = this.prefixBase64 + this.base64Image;
       })
       .catch(error => {
         console.log("error onTakePhoto : " + error);

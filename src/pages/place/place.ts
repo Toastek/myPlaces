@@ -1,4 +1,4 @@
-import { PlacesService } from "./../../services/places.service";
+import { MyFirebaseService } from './../../services/myfirebase.service';
 import { Component } from "@angular/core";
 import {
   IonicPage,
@@ -20,10 +20,12 @@ export class PlacePage {
   constructor(
     public navParams: NavParams,
     private viewCtrl: ViewController,
-    private placesService: PlacesService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private myFirebaseService : MyFirebaseService
   ) {
     this.place = this.navParams.get("place");
+    console.log("PlacePage");
+    console.log(this.place);
     this.index = this.navParams.get("index");
   }
 
@@ -50,7 +52,7 @@ export class PlacePage {
           text: "Ok",
           handler: () => {
             console.log("Confirm Okay");
-            this.placesService.deletePlace(this.index);
+            this.myFirebaseService.deletePlaceFromFirebase(this.place)
             this.onLeave();
           }
         }

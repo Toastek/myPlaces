@@ -4,6 +4,8 @@ export class Place {
     public title: string,
     public description: string,
     public location: Location,
-    public imagePath: string
+    public imagePath: string,
+    public id: string,
+    public storeID: string,
   ) {}
 }

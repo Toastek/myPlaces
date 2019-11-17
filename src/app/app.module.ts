@@ -17,10 +17,11 @@ import { AddPlacePage } from "./../pages/add-place/add-place";
 import { SignInPage } from "./../pages/sign-in/sign-in";
 import { LogInPage } from "./../pages/log-in/log-in";
 
-import { PlacesService } from "./../services/places.service";
 import { MyFirebaseService } from './../services/myfirebase.service';
 
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule,  } from 'Angularfire2/storage'
+
 
 import { AgmCoreModule } from "@agm/core";
 
@@ -43,6 +44,8 @@ import { AgmCoreModule } from "@agm/core";
     }),
     AngularFireModule.initializeApp(firebaseConfig.fire),
     AngularFirestoreModule,
+    AngularFireStorageModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -58,7 +61,6 @@ import { AgmCoreModule } from "@agm/core";
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    PlacesService,
     MyFirebaseService,
     AngularFireAuth,
   ]

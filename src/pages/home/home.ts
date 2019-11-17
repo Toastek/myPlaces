@@ -1,5 +1,5 @@
+import { MyFirebaseService } from './../../services/myfirebase.service';
 import { PlacePage } from "./../place/place";
-import { PlacesService } from "./../../services/places.service";
 import { Place } from "./../../models/place.model";
 import { AddPlacePage } from "./../add-place/add-place";
 import { Component, OnInit } from "@angular/core";
@@ -17,17 +17,32 @@ export class HomePage implements OnInit {
   constructor(
     public navCtrl: NavController,
     private modalCtrl: ModalController,
-    private placesService: PlacesService
+    private myFirebaseService: MyFirebaseService
   ) {}
 
   ngOnInit() {
-    this.placesService
-      .fetchPlaces()
-      .then((places: Place[]) => (this.places = places));
+    console.log("ngOnInit HOME");
+    this.updateUserData();
   }
 
   ionViewWillEnter() {
-    this.places = this.placesService.loadPlaces();
+    console.log("WillEnter HOME");
+    this.updateUserData();
+  }
+
+  updateUserData(){
+    this.myFirebaseService.getFirebaseUserData().then(snapshot =>{
+      this.places = [];
+      snapshot.forEach(doc =>{
+        var title = doc.data().title;
+        var description = doc.data().description;
+        var imagePath = doc.data().imagePath;
+        var location = doc.data().location;
+        var id = doc.data().id;
+        var storeID = doc.data().storeID;
+        this.places.push(new Place(title, description, location, imagePath, id, storeID));
+      });
+    });
   }
 
   onOpenPlaces(thePlace: Place, index: number) {
@@ -36,7 +51,7 @@ export class HomePage implements OnInit {
       index: index
     });
     modal.onDidDismiss(data => {
-      this.places = this.placesService.loadPlaces();
+      this.updateUserData();
     });
     modal.present();
   }
