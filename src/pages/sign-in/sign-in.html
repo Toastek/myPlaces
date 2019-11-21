@@ -1,25 +1,15 @@
-<!-- <ion-header>
-  <ion-navbar>
-    <ion-title>signInPage</ion-title>
-  </ion-navbar>
-</ion-header> -->
-
 <ion-content>
-
-  <div class="myClass">
+  <div>
     <form #form="ngForm" (ngSubmit)="onSignin(form)">
       <ion-grid padding>
         <ion-row color="primary" justify-content-center>
           <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
             <div text-center>
-              <h3>Créez votre compte myPlaces !</h3>
+              <h3 class="whiteTitle">Créez votre compte myPlaces !</h3>
             </div>
             <div padding>
               <ion-item>
-                <ion-input name="name" type="text" placeholder="Pseudo" ngModel required></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-input name="email" type="email" placeholder="votre@email.com" ngModel required></ion-input>
+                <ion-input pattern="[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}" name="email" type="email" placeholder="votre@email.com" ngModel required></ion-input>
               </ion-item>
               <ion-item>
                 <ion-input name="password" type="password" placeholder="Mot de passe" ngModel required></ion-input>
@@ -28,16 +18,16 @@
                 <ion-input name="confirm" type="password" placeholder="Confirmer le mdp" ngModel required></ion-input>
               </ion-item>
             </div>
-            <div padding>
-              <button ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Register</button>
-            </div>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
-            <button ion-button (click)="onGoBackToLogin()">
+            <button ion-button block (click)="onGoBackToLogin()">
               J'ai déjà un compte
             </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button block type="submit" [disabled]="form.invalid" expand="block">Register</button>
           </ion-col>
         </ion-row>
       </ion-grid>

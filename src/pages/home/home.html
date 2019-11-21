@@ -1,8 +1,11 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-buttons end>
 <button ion-button icon-only [navPush]="addPlacePage">
   <ion-icon name="add"></ion-icon>
+</button>
+<button ion-button icon-only (click)="onLogOut()">
+  <ion-icon name="md-exit"></ion-icon>
 </button>
     </ion-buttons>
     <ion-title>
@@ -21,7 +24,4 @@
      <p>{{ place.description }}</p>
    </ion-card-content>
  </ion-card>
-    <button ion-button (click)="onToto()">
-      TOTO
-    </button>
 </ion-content>

@@ -3,7 +3,7 @@ import { PlacePage } from "./../place/place";
 import { Place } from "./../../models/place.model";
 import { AddPlacePage } from "./../add-place/add-place";
 import { Component, OnInit } from "@angular/core";
-import { NavController, ModalController } from "ionic-angular";
+import { NavController, ModalController, AlertController } from "ionic-angular";
 import { LogInPage } from "../log-in/log-in";
 
 @Component({
@@ -17,7 +17,8 @@ export class HomePage implements OnInit {
   constructor(
     public navCtrl: NavController,
     private modalCtrl: ModalController,
-    private myFirebaseService: MyFirebaseService
+    private myFirebaseService: MyFirebaseService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -28,6 +29,36 @@ export class HomePage implements OnInit {
   ionViewWillEnter() {
     console.log("WillEnter HOME");
     this.updateUserData();
+  }
+
+ async  onLogOut() {
+    const alert = this.alertController.create({
+      title: "Vous allez vous déconnecter",
+      subTitle: "<strong>Êtes-vous sûr(e) ?</strong>",
+      buttons: [
+        {
+          text: "Annuler",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {
+            //alert.dismiss();
+          }
+        },
+        {
+          text: "Ok",
+          handler: () => {
+            this.myFirebaseService.signOut().then(result => {
+              this.navCtrl.push(LogInPage);
+
+            }, error => {
+              console.log('error while signing out user');
+              console.log(error);
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   updateUserData(){
@@ -54,9 +85,5 @@ export class HomePage implements OnInit {
       this.updateUserData();
     });
     modal.present();
-  }
-
-  onToto() {
-    this.navCtrl.push(LogInPage);
   }
 }

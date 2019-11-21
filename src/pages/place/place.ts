@@ -34,7 +34,7 @@ export class PlacePage {
   }
 
   async onDelete() {
-    const alert = await this.alertCtrl.create({
+    const alert = this.alertCtrl.create({
       title: "Supprimer cet endroit",
       subTitle: "<strong>Êtes-vous sûr(e) ?</strong>",
       buttons: [
@@ -42,10 +42,8 @@ export class PlacePage {
           text: "Annuler",
           role: "cancel",
           cssClass: "secondary",
-          handler: blah => {
-            console.log("Confirm Cancel: blah");
+          handler: () => {
             //alert.dismiss();
-            this.onLeave();
           }
         },
         {
@@ -60,7 +58,5 @@ export class PlacePage {
     });
 
     await alert.present();
-    // this.placesService.deletePlace(this.index);
-    // this.onLeave();
   }
 }

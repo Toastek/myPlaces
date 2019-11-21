@@ -1,36 +1,31 @@
-<!-- <ion-header>
-  <ion-navbar>
-    <ion-title>Connexion à myPlaces</ion-title>
-  </ion-navbar>
-</ion-header> -->
-
 <ion-content>
-  <div class="myClass">
-  <form #form="ngForm" (ngSubmit)="onLogin(form)">
-    <ion-grid padding>
-      <ion-row color="primary" justify-content-center>
-        <ion-col align-center>
-          <div text-center>
-            <h3>Connectez-vous à myPlaces !</h3>
-          </div>
-          <div padding>
-            <ion-item>
-              <ion-input name="email" type="email" placeholder="votre@email.com" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input name="password" type="password" placeholder="Mot de passe" ngModel required></ion-input>
-            </ion-item>
-          </div>
-          <div padding>
-            <button ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Se connecter</button>
-          </div>
-        </ion-col>
-        <ion-col>
-          <button ion-button (click)="onGoToSignin()">Je n'ai pas de compte</button>
-          <button ion-button (click)="onGoToHomePage()">[test homePage]</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
-</div>
+  <div>
+    <form #form="ngForm" (ngSubmit)="onLogin(form)">
+      <ion-grid padding>
+        <ion-row color="primary" justify-content-center>
+          <ion-col align-center>
+            <div text-center>
+              <h3 class="whiteTitle">Connectez-vous à myPlaces !</h3>
+            </div>
+            <div padding>
+              <ion-item>
+                <ion-input pattern="[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}" name="email" type="email" placeholder="votre@email.com" ngModel required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input name="password" type="password" placeholder="Mot de passe" ngModel required></ion-input>
+              </ion-item>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <button ion-button block (click)="onGoToSignin()">Je n'ai pas de compte</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button block type="submit" [disabled]="form.invalid" expand="block">Se connecter</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </div>
 </ion-content>

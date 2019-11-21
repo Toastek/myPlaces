@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Ajouter cet endroit !</ion-title>
   </ion-navbar>
 </ion-header>
@@ -20,14 +20,14 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button block outline type="button" icon-left (click)="onLocate()">
+          <button ion-button block type="button" icon-left (click)="onLocate()">
             <ion-icon name="locate">
             </ion-icon>
             Localise moi !
           </button>
         </ion-col>
         <ion-col>
-          <button ion-button block outline type="button" icon-left (click)="onOpenMap()">
+          <button ion-button block type="button" icon-left (click)="onOpenMap()">
             <ion-icon name="map">
             </ion-icon>
             Ouvrir la carte !
@@ -48,7 +48,7 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <button ion-button block icon-left outline type="button" (click)="onTakePhoto()">
+          <button ion-button block icon-left type="button" (click)="onTakePhoto()">
             <ion-icon name="camera"></ion-icon>
           </button>
         </ion-col>

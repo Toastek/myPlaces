@@ -24,6 +24,10 @@ export class MyFirebaseService {
     });
   }
 
+  signOut() {
+    return (this.afAuth.auth.signOut());
+  }
+
   signInWithEmail(email: string, password: string) {
     console.log("Sign in with email");
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
@@ -48,16 +52,26 @@ export class MyFirebaseService {
     }
   }
 
-deletePlaceFromFirebase(place : Place) {
+  deletePlaceFromFirebase(place: Place) {
     let storageRef = firebase.storage().ref();
-    this.fireStore.collection(this.user.uid).doc(place.id).delete().then(result => {
-    console.log('deleteplace result');
-    console.log(result);
-   }, error => {
-     console.log('deleteplace error');
-     console.log(error);
-   });
-   storageRef.child(this.user.uid).child(place.storeID).delete();
+    this.fireStore
+      .collection(this.user.uid)
+      .doc(place.id)
+      .delete()
+      .then(
+        result => {
+          console.log("deleteplace result");
+          console.log(result);
+        },
+        error => {
+          console.log("deleteplace error");
+          console.log(error);
+        }
+      );
+    storageRef
+      .child(this.user.uid)
+      .child(place.storeID)
+      .delete();
   }
 
   pushPlaceToFirebase(place: Place) {

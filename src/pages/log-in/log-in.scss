@@ -1,16 +1,9 @@
 page-log-in {
-  // ion-item {
-  //   --background: #3880ff;
-  //   --color: #fff;
-  // }
-  // ion-content {
-  //   --background: #062f77;
-  // }
-
-  .myClass {
-    background-color: #3880ff;
-    height: 100%;
-    width: 100%;
-    color: #fff;
+  ion-content {
+    background-image: url("../../assets/imgs/fireTower.jpg");
+    background-size: 100%;
+  }
+  .whiteTitle {
+    color: white;
   }
 }

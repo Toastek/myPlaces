@@ -47,6 +47,9 @@ export class AddPlacePage {
   }
 
   onSubmit(form: NgForm) {
+    const myLoader = this.loadingCtrl.create({
+      content: "Localisation en cours..."
+    });
     var storeID = Date.now().toLocaleString();
     this.myFirebaseService
       .uploadImageToFirestore(this.base64Image, storeID)
@@ -54,7 +57,7 @@ export class AddPlacePage {
         this.myFirebaseService.getImageUrlFromFirestore(storeID).then(url => {
           console.log(form);
           this.imageUrl = url;
-          var docID : string = this.myFirebaseService.user.uid+storeID;
+          var docID: string = this.myFirebaseService.user.uid + storeID;
           this.myFirebaseService.pushPlaceToFirebase(
             new Place(
               form.value.title,
@@ -65,6 +68,7 @@ export class AddPlacePage {
               storeID
             )
           );
+          myLoader.dismiss();
           const toast = this.toastCtrl.create({
             message: "L'endroit \"" + form.value.title + '" a été sauvegardé',
             duration: 2500
@@ -79,6 +83,13 @@ export class AddPlacePage {
           this.imageUrl = "";
           this.locationIsSet = false;
         });
+      }, error => {
+        myLoader.dismiss();
+        const toast = this.toastCtrl.create({
+          message: "Une erreur est survenue lors de l'ajout de l'endroit !",
+          duration: 2500
+        });
+        toast.present();
       });
   }
 

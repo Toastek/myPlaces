@@ -2,4 +2,8 @@ page-add-place {
   agm-map {
     height: 300px;
   }
+  ion-content {
+    background-image: url("../../assets/imgs/fireTower.jpg");
+    background-size: 100%;
+  }
 }
