@@ -25,7 +25,7 @@ export class MyFirebaseService {
   }
 
   signOut() {
-    return (this.afAuth.auth.signOut());
+    return this.afAuth.auth.signOut();
   }
 
   signInWithEmail(email: string, password: string) {
