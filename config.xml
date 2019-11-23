@@ -3,7 +3,7 @@
     <name>myPlaces</name>
     <description>An app to save your favorite places !</description>
     <author email="giacomo.kersevan@gmail.com" href="https://github.com/Toastek">Toastek</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

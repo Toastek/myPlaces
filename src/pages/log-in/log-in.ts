@@ -41,12 +41,14 @@ export class LogInPage {
       })
       .catch(error => {
         console.log(error.message);
-        const toast = this.toastCtrl.create({
-          message:
-            "Veuillez rentrer une adresse et un mot de passe valides, et vérifier votre connexion à internet",
-          duration: 5000
-        });
-        toast.present();
+        if (!this.hideToast) {
+          const toast = this.toastCtrl.create({
+            message:
+              "Veuillez rentrer une adresse et un mot de passe valides, et vérifier votre connexion à internet",
+            duration: 5000
+          });
+          toast.present();
+        }
       });
 
     console.log(form);
